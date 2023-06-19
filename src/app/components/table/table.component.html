@@ -1,0 +1,161 @@
+
+
+
+
+<!-- NAV -->
+<div class="row mb-4 border-bottom">
+    <div class="col-auto me-4">
+        <div class="row">
+            <div class="col h3 text-center">
+                {{ "År " + time.selectedYear }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto btn" (click)="time.nav('-', 'year')">
+                <fa-icon [icon]="faChevronLeft"></fa-icon>
+                Prev
+            </div>
+           
+            <div class="col-auto btn" (click)="time.nav('+', 'year')">
+                Next
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+            </div>
+        </div>
+       
+    </div>
+
+    <div class="col-auto me-4">
+        <div class="row">
+            <div class="col h3 text-center">
+                {{ "Vecka " + time.selectedWeek.number }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto btn" (click)="time.nav('-', 'week')">
+                <fa-icon [icon]="faChevronLeft"></fa-icon>
+                Prev
+            </div>
+           
+            <div class="col-auto btn" (click)="time.nav('+', 'week')">
+                Next
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+            </div>
+        </div>
+       
+    </div>
+   
+</div>
+
+<!-- SETTINGS -->
+<div class="row mb-4 border-bottom">
+    <div class="col">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="showDates" (change)="toggleDates()" >
+            <label class="form-check-label" for="showDates" >
+              Show dates
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="showWeekend" (change)="toggleWeekend()">
+            <label class="form-check-label" for="showWeekend" >
+              Show weekend
+            </label>
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col {{day.bkgColor}}" *ngFor="let day of time.selectedWeek.days | slice:startDay:endDay" (click)="day.isExpanded='d-block'">
+        <div class="mb-2 text-primary" *ngIf="day.yyyy_mm_dd == time.currentDay.yyyy_mm_dd">
+            <div class="d-inline h5">{{ day.name + " " }}</div>
+            <div class="d-inline h6" *ngIf="showDates">{{ "( " + day.yyyy_mm_dd + " ) "}}</div>
+
+        </div>
+        <div class="mb-2" *ngIf="day.yyyy_mm_dd != time.currentDay.yyyy_mm_dd">
+            <div class="d-inline h5">{{ day.name + " " }}</div>
+            <div class="d-inline h6" *ngIf="showDates">{{ "( " + day.yyyy_mm_dd + " ) "}}</div>
+
+        </div>
+        
+        <form class="mb-2">
+            <input class="form-control" type="time" step="" value="{{day.startTime}}" (change)="day.startTime = starttime.value; time.calculate()" #starttime required>
+        </form>
+
+        <!--
+        <div class="border">{{day.startTime}} - {{day.endTime}}</div>
+        -->
+
+        <div class="mb-2" *ngFor="let b of day.breaks">
+            <div class="">{{b.startTime}} - {{b.endTime}} {{ "(" + b.hhmm + ")" }}</div>
+        </div>
+
+        <form class="mb-2">
+            <input class="form-control" type="time" step="" value="{{day.endTime}}" (change)="day.endTime = endtime.value; time.calculate()" #endtime required>
+        </form>
+
+        <div class="mb-2">{{ day.hhmm }}</div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end mb-4 border">
+    <div class="col"></div>
+    <div class="col-auto h5 px-3 pb-2 pt-3">
+        {{time.selectedWeek.hhmm}}
+    </div>
+</div>
+
+<div class="d-flex justify-content-center my-4">
+    <div class="btn btn-outline-dark me-4" (click)="time.nav('-', 'week')">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        Prev
+    </div>
+    
+    <div class="btn btn-outline-dark me-4" (click)="time.nav('today', 'week')" *ngIf="time.currentWeek.number != time.selectedWeek.number" >
+        Today
+    </div>
+    <div class="btn btn-outline-dark me-4 disabled" *ngIf="time.currentWeek.number == time.selectedWeek.number" >
+        Today
+    </div>
+
+    <div class="btn btn-outline-dark" (click)="time.nav('+', 'week')">
+        Next
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+    </div>
+   
+</div>
+
+
+<div class="d-flex justify-content-center my-4">
+    
+    <div class="col-auto px-4 py-1 border">
+        {{time.today.yyyy_mm_dd}}
+    </div>
+</div>
+
+<!-- TEST -->
+<!--
+<div class="container-fluid m-0 p-0">
+-->
+
+    <!--
+    <div class="d-flex">
+        
+
+        <div class="row" *ngFor="let day of time.selectedWeek.days">
+            <div class="col position-relative bg-warning border" [style.height.px]="day.total*10" [style.top.px]="day.start*10" >
+                {{day.startTime}} - {{day.endTime}}
+            </div>
+            <div class="col position-relative bg-danger border" [style.height.px]="b.total*10" [style.top.px]="b.start*10 - b.total*10" *ngFor="let b of day.breaks">
+                a
+            </div>
+            
+        </div>
+        
+        
+      
+    </div>
+    -->
+<!--
+</div>
+-->
