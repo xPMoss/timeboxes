@@ -79,7 +79,8 @@
         </div>
         
         <form class="mb-2">
-            <input class="form-control" type="time" step="" value="{{day.startTime}}" (change)="day.startTime = starttime.value; time.calculate()" #starttime required>
+            <input class="form-control" type="time" step="" value="{{day.startTime}}" (change)="day.startTime = starttime.value; time.calculate()" #starttime required *ngIf="day.startTime">
+            <input class="form-control" type="time" step="" value="{{config.startTime}}" (change)="day.startTime = starttime.value; time.calculate()" #starttime required *ngIf="!day.startTime">
         </form>
 
         <!--
@@ -91,7 +92,8 @@
         </div>
 
         <form class="mb-2">
-            <input class="form-control" type="time" step="" value="{{day.endTime}}" (change)="day.endTime = endtime.value; time.calculate()" #endtime required>
+            <input class="form-control" type="time" step="" value="{{day.endTime}}" (change)="day.endTime = endtime.value; time.calculate()" #endtime required *ngIf="day.endTime">
+            <input class="form-control" type="time" step="" value="{{config.endTime}}" (change)="day.endTime = endtime.value; time.calculate()" #endtime required *ngIf="!day.endTime">
         </form>
 
         <div class="mb-2">{{ day.hhmm }}</div>

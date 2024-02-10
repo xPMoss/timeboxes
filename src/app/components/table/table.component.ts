@@ -3,6 +3,7 @@ import { Time, WorkItem } from '../../models/day.model';
 
 import { faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icons';
 
+import { config } from "../../helpers/config";
 
 @Component({
   selector: 'table-component',
@@ -20,6 +21,8 @@ export class TableComponent {
   showWeekend:boolean = false;
   startDay:number = 0;
   endDay:number = 5;
+
+  config = config;
 
   constructor(){
   
