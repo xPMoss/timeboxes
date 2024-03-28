@@ -65,6 +65,7 @@
     
 </div>
 
+<!-- MAIN -->
 <div class="row">
     <div class="col {{day.bkgColor}}" *ngFor="let day of time.selectedWeek.days | slice:startDay:endDay" (click)="day.isExpanded='d-block'">
         <div class="mb-2 text-primary" *ngIf="day.yyyy_mm_dd == time.currentDay.yyyy_mm_dd">
@@ -73,8 +74,8 @@
 
         </div>
         <div class="mb-2" *ngIf="day.yyyy_mm_dd != time.currentDay.yyyy_mm_dd">
-            <div class="d-inline h5">{{ day.name + " " }}</div>
-            <div class="d-inline h6" *ngIf="showDates">{{ "( " + day.yyyy_mm_dd + " ) "}}</div>
+            <div class="d-inline h5">{{ day.name + " " }}</div><br/>
+            <div class="d-inline h6" *ngIf="showDates">{{ day.yyyy_mm_dd }}</div>
 
         </div>
         
@@ -96,7 +97,7 @@
             <input class="form-control" type="time" step="" value="{{config.endTime}}" (change)="day.endTime = endtime.value; time.calculate()" #endtime required *ngIf="!day.endTime">
         </form>
 
-        <div class="mb-2">{{ day.hhmm }}</div>
+        <div class="mb-2 text-end pe-2">{{ day.hhmm }}</div>
     </div>
 </div>
 
@@ -113,10 +114,10 @@
         Prev
     </div>
     
-    <div class="btn btn-outline-dark me-4" (click)="time.nav('today', 'week')" *ngIf="time.currentWeek.number != time.selectedWeek.number" >
+    <div class="btn btn-outline-dark me-4" (click)="time.nav('today', 'week')" *ngIf="time.currentWeek.number != time.selectedWeek.number || time.currentYear != time.selectedYear" >
         Today
     </div>
-    <div class="btn btn-outline-dark me-4 disabled" *ngIf="time.currentWeek.number == time.selectedWeek.number" >
+    <div class="btn btn-outline-dark me-4 disabled" *ngIf="time.currentWeek.number == time.selectedWeek.number && time.currentYear == time.selectedYear" >
         Today
     </div>
 
